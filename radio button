@@ -1,0 +1,87 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RadioButtonDemo extends JFrame implements ActionListener {
+    private final JRadioButton birdButton, catButton, dogButton, rabbitButton, pigButton;
+    private final ButtonGroup buttonGroup;
+    private final JLabel petLabel;
+
+    public RadioButtonDemo() {
+        // Set up the frame
+        setTitle("RadioButtonDemo");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        // Create radio buttons
+        birdButton = new JRadioButton("Bird");
+        catButton = new JRadioButton("Cat");
+        dogButton = new JRadioButton("Dog");
+        rabbitButton = new JRadioButton("Rabbit");
+        pigButton = new JRadioButton("Pig");
+
+        // Add radio buttons to a button group
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(birdButton);
+        buttonGroup.add(catButton);
+        buttonGroup.add(dogButton);
+        buttonGroup.add(rabbitButton);
+        buttonGroup.add(pigButton);
+
+        // Add action listeners to radio buttons
+        birdButton.addActionListener(this);
+        catButton.addActionListener(this);
+        dogButton.addActionListener(this);
+        rabbitButton.addActionListener(this);
+        pigButton.addActionListener(this);
+
+        // Create a label to display the selected pet
+        petLabel = new JLabel();
+        petLabel.setPreferredSize(new Dimension(200, 150)); // Set label size to properly display the image
+
+        // Add components to the frame
+        add(birdButton);
+        add(catButton);
+        add(dogButton);
+        add(rabbitButton);
+        add(pigButton);
+        add(petLabel);
+
+        // Set the initial selection to pig
+        pigButton.setSelected(true);
+        updatePetImage("pig.jpg"); // Set the initial image for pig
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == birdButton) {
+            updatePetImage("bird.jpg");
+            JOptionPane.showMessageDialog(this, "You selected: Bird");
+        } else if (e.getSource() == catButton) {
+            updatePetImage("cat.jpg");
+            JOptionPane.showMessageDialog(this, "You selected: Cat");
+        } else if (e.getSource() == dogButton) {
+            updatePetImage("dog.jpg");
+            JOptionPane.showMessageDialog(this, "You selected: Dog");
+        } else if (e.getSource() == rabbitButton) {
+            updatePetImage("rabbit.jpg");
+            JOptionPane.showMessageDialog(this, "You selected: Rabbit");
+        } else if (e.getSource() == pigButton) {
+            updatePetImage("pig.jpg");
+            JOptionPane.showMessageDialog(this, "You selected: Pig");
+        }
+    }
+
+    // Helper method to update the image based on selected pet
+    private void updatePetImage(String imageName) {
+        petLabel.setIcon(new ImageIcon(imageName)); // Set the image for the selected pet
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new RadioButtonDemo().setVisible(true);
+        });
+    }
+}
